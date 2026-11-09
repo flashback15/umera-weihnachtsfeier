@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Weihnachtsfeier in der Umera</title>
+<meta name="description" content="Einladung zur Weihnachtsfeier in der Umera Shisha Lounge mit Shot-Wichteln.">
+<style>
+  :root { --green:#123227; --red:#8e1f2b; --gold:#a97e23; --paper:#fbf6e9; --ink:#2b2520; --muted:#6a6052; --line:#d9cdb2; }
+  * { box-sizing:border-box; }
+  body { margin:0; padding:32px 16px; color:var(--ink); font:17px/1.55 Georgia,"Times New Roman",serif;
+    background:var(--green) radial-gradient(circle,#ffffff30 1.5px,transparent 2px) 0 0/46px 46px; }
+  .card { max-width:600px; margin:auto; padding:10px; background:var(--paper); border-radius:6px; box-shadow:0 18px 50px #0008; }
+  .inner { border:2px solid var(--gold); outline:1px solid var(--gold); outline-offset:-7px; padding:36px 28px; }
+  header, .details, .done { text-align:center; }
+  .kicker { margin:0; color:var(--red); letter-spacing:.14em; text-transform:uppercase; font-size:14px; }
+  h1 { margin:8px 0; color:var(--green); font-size:clamp(34px,9vw,50px); line-height:1.1; font-weight:normal; }
+  h2 { margin:0 0 10px; color:var(--red); font-size:23px; font-weight:normal; }
+  .star { color:var(--gold); font-size:22px; }
+  .details { margin:18px 0 0; }
+  .details strong { display:block; font-size:20px; }
+  .note { color:var(--red); font-style:italic; }
+  section { margin-top:28px; padding-top:24px; border-top:1px solid var(--line); }
+  section p { margin:0 0 10px; }
+  fieldset { border:0; margin:0 0 20px; padding:0; }
+  legend, .label { display:block; padding:0; margin-bottom:6px; font-weight:bold; }
+  .choice { display:flex; gap:10px; align-items:center; padding:5px 0; }
+  input[type=radio] { flex:none; width:20px; height:20px; margin:0; accent-color:var(--red); }
+  input[type=text], textarea { width:100%; padding:11px; color:inherit; font:inherit; background:#fff; border:1px solid #a89b80; border-radius:4px; }
+  input[type=range] { width:100%; accent-color:var(--red); }
+  .field { margin-bottom:20px; }
+  .sub { margin:8px 0 0; }
+  .ends { display:flex; justify-content:space-between; color:var(--muted); font-size:14px; }
+  output { display:block; text-align:center; color:var(--green); font-weight:bold; }
+  .hint { color:var(--muted); font-size:15px; font-weight:normal; }
+  button { width:100%; padding:14px; color:#fff; font:inherit; font-size:18px; background:var(--red); border:0; border-radius:4px; cursor:pointer; }
+  button:disabled { opacity:.6; cursor:wait; }
+  :focus-visible { outline:3px solid var(--gold); outline-offset:2px; }
+  #error { color:var(--red); font-weight:bold; }
+  [hidden] { display:none !important; }
+  @media (max-width:480px) { .inner { padding:28px 18px; } }
+</style>
+</head>
+<body>
+<main class="card"><div class="inner">
+  <header>
+    <p class="kicker">Du bist herzlich eingeladen</p>
+    <h1>Weihnachtsfeier in der Umera</h1>
+    <div class="star" aria-hidden="true">✦ ✦ ✦</div>
+  </header>
+
+  <div class="details">
+    <strong>Samstag, 14. November 2026</strong>
+    <strong>ab 18 Uhr</strong>
+    <div class="note">Bitte nicht früher kommen.</div>
+    Umera Shisha Lounge, Obertshausen
+  </div>
+
+  <section>
+    <h2>Shot-Wichteln</h2>
+    <p>Wer mitmachen möchte, bereitet einen Shot vor, also eine Portion fertigen Tabak für einen Kopf, und bringt ihn mit.</p>
+    <p>Vor Ort wird getauscht. Den Shot, den du bekommst, nimmst du mit nach Hause.</p>
+  </section>
+
+  <section>
+    <h2>Noch jemanden mitbringen?</h2>
+    <p>Plus-eins-Gäste sind willkommen, aber bitte nur nach Absprache mit mir auf Telegram.</p>
+  </section>
+
+  <section>
+    <form id="form">
+      <h2>Anmeldung &amp; Wunschkopf</h2>
+      <p>Sag mir, ob du kommst und was in deinem ersten Kopf des Abends sein soll. Die Hookah-Master der Umera bauen ihn dir nach deinem Wunsch.</p>
+
+      <div class="field">
+        <label class="label" for="name">Dein Name</label>
+        <input type="text" id="name" name="name" required maxlength="80" autocomplete="name">
+      </div>
+
+      <fieldset>
+        <legend>Kommst du allein?</legend>
+        <label class="choice"><input type="radio" name="begleitung" value="allein" required> Ich komme allein</label>
+        <label class="choice"><input type="radio" name="begleitung" value="plus1"> Ich bringe jemanden mit (abgesprochen)</label>
+        <div id="plusBox" class="sub" hidden>
+          <label class="label" for="plusName">Wen bringst du mit?</label>
+          <input type="text" id="plusName" name="plusName" maxlength="80">
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Machst du beim Shot-Wichteln mit?</legend>
+        <label class="choice"><input type="radio" name="wichteln" value="ja" required> Ja, ich bringe einen Shot mit</label>
+        <label class="choice"><input type="radio" name="wichteln" value="nein"> Nein, diesmal nicht</label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Welcher Tabak soll in deinen ersten Kopf?</legend>
+        <label class="choice"><input type="radio" name="tabak" value="Pur Virginia" required> Pur Virginia</label>
+        <label class="choice"><input type="radio" name="tabak" value="Pur Dark Blend"> Pur Dark Blend</label>
+        <label class="choice"><input type="radio" name="tabak" value="Gemischt"> Gemischt</label>
+        <div id="mixBox" class="sub" hidden>
+          <label class="label" for="mix">Mischverhältnis</label>
+          <input type="range" id="mix" min="10" max="90" step="10" value="50">
+          <div class="ends" aria-hidden="true"><span>Mehr Virginia</span><span>Mehr Dark Blend</span></div>
+          <output id="mixOut" for="mix"></output>
+        </div>
+      </fieldset>
+
+      <div class="field">
+        <label class="label" for="wunsch">Was möchtest du rauchen? <span class="hint">(optional)</span></label>
+        <textarea id="wunsch" name="wunsch" rows="3" maxlength="500" placeholder="z. B. keine Wassermelone, gern cremig oder fruchtig, ein bisschen Frische"></textarea>
+      </div>
+
+      <button id="send">Anmelden</button>
+      <p id="error" role="alert" hidden></p>
+    </form>
+
+    <div id="done" class="done" role="status" hidden>
+      <h2>Danke, du bist dabei!</h2>
+      <p>Wir sehen uns ab 18 Uhr in der Umera.</p>
+    </div>
+  </section>
+</div></main>
+
+<script>
+  // Web-App-URL aus Google Apps Script (siehe apps-script.gs)
+  const ENDPOINT = "";
+
+  const form = document.getElementById("form");
+  const mix = document.getElementById("mix");
+  const plusName = document.getElementById("plusName");
+  const send = document.getElementById("send");
+  const error = document.getElementById("error");
+  const shares = () => ({ virginia: 100 - mix.value, dark: +mix.value });
+
+  function update() {
+    const plus = form.begleitung.value === "plus1";
+    document.getElementById("plusBox").hidden = !plus;
+    plusName.required = plus;
+    document.getElementById("mixBox").hidden = form.tabak.value !== "Gemischt";
+    const s = shares();
+    const text = `${s.virginia} % Virginia / ${s.dark} % Dark Blend`;
+    document.getElementById("mixOut").textContent = text;
+    mix.setAttribute("aria-valuetext", text);
+  }
+  form.addEventListener("input", update);
+  update();
+
+  form.addEventListener("submit", async e => {
+    e.preventDefault();
+    send.disabled = true;
+    error.hidden = true;
+    const f = form.elements;
+    const mixed = f.tabak.value === "Gemischt";
+    const pure = f.tabak.value === "Pur Virginia" ? [100, 0] : [0, 100];
+    const s = shares();
+    const plus = f.begleitung.value === "plus1";
+    try {
+      if (!ENDPOINT) throw new Error("kein Endpoint");
+      // Formular-Encoding statt JSON: braucht keinen CORS-Preflight, den Apps Script nicht beantwortet.
+      const res = await fetch(ENDPOINT, { method: "POST", body: new URLSearchParams({
+        name: f.name.value.trim(),
+        begleitung: plus ? f.plusName.value.trim() : "allein",
+        wichteln: f.wichteln.value,
+        tabak: f.tabak.value,
+        virginia: mixed ? s.virginia : pure[0],
+        dark: mixed ? s.dark : pure[1],
+        wunsch: f.wunsch.value.trim(),
+      })});
+      if (!(await res.json()).ok) throw new Error("abgelehnt");
+      form.hidden = true;
+      document.getElementById("done").hidden = false;
+    } catch {
+      error.textContent = "Das hat leider nicht geklappt. Deine Angaben sind noch da, bitte versuch es gleich nochmal oder schreib mir auf Telegram.";
+      error.hidden = false;
+      send.disabled = false;
+    }
+  });
+</script>
+</body>
+</html>
